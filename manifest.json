@@ -1,0 +1,8 @@
+{
+  "name": "poetry",
+  "version": "1.0.0",
+  "description": "Poetry plugin for mise version manager",
+  "author": "G",
+  "homepage": "https://github.com/g-lok/mise-poetry",
+  "engine": "minas"
+}
