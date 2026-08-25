@@ -1,4 +1,3 @@
--- Must be attached directly to the global PLUGIN object
 function PLUGIN:EnvKeys(ctx)
 	local project_root = os.getenv("MISE_PROJECT_ROOT") or os.getenv("PWD")
 	local pyproject = project_root .. "/pyproject.toml"
@@ -29,7 +28,13 @@ function PLUGIN:EnvKeys(ctx)
 		lock_f:close()
 	end
 
-	local poetry_bin = ctx.rootPath .. "/bin/poetry"
+	-- Locate the installation path safely using runtimePath context
+	local install_root = ctx.runtimePath or ctx.installPath or ctx.rootPath
+	if not install_root then
+		return {}
+	end
+
+	local poetry_bin = install_root .. "/bin/poetry"
 
 	-- Run a dynamic dry run to force-generate a .venv if it's missing
 	os.execute(string.format("%s --directory %s run true >/dev/null 2>&1", poetry_bin, project_root))
