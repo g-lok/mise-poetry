@@ -1,7 +1,7 @@
 local http = require("http")
 local json = require("json")
 
-function Available()
+function PLUGIN:Available()
 	local url = "https://github.com"
 	local resp, err = http.get(url, { ["User-Agent"] = "vfox-poetry" })
 	if err then
