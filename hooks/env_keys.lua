@@ -54,11 +54,14 @@ function PLUGIN:EnvKeys(ctx)
 			os.execute(string.format("%s --directory %s install", poetry_bin, project_root))
 		end
 
-		-- Export environment changes back to mise
+		-- CORRECT VFOX WAY: Use the native path object to force-prepend priority
+		-- over mise's system/tool pythons
+		ctx.path:prepend(venv_path .. "/bin")
+
+		-- Return only standard non-PATH environment updates
 		return {
 			{ key = "VIRTUAL_ENV", value = venv_path },
 			{ key = "POETRY_ACTIVE", value = "1" },
-			{ key = "PATH", value = venv_path .. "/bin" .. ctx.pathSeparator .. os.getenv("PATH") },
 		}
 	end
 
