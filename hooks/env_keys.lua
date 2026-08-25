@@ -1,4 +1,5 @@
-function EnvKeys(ctx)
+-- Must be attached directly to the global PLUGIN object
+function PLUGIN:EnvKeys(ctx)
 	local project_root = os.getenv("MISE_PROJECT_ROOT") or os.getenv("PWD")
 	local pyproject = project_root .. "/pyproject.toml"
 	local uv_lock = project_root .. "/uv.lock"
